@@ -78,10 +78,15 @@ class KeStudy163CourseByYangLiang30(object):
 
                 time.sleep(1)
                 links = [element.get_attribute('src') for element in self.driver.find_elements(By.XPATH, "//*[@src]") if
-                         element.get_attribute('src').startswith('https://ydschool') or element.get_attribute(
+                         not element.get_attribute('src').endswith('.js') and (
+                                 '.mp3' in element.get_attribute('src') or '.mp4' in element.get_attribute(
+                             'src') or element.get_attribute('src').startswith(
+                             'https://ydschool') or element.get_attribute(
                              'src').startswith('http://ydschool') or element.get_attribute('src').startswith(
                              'https://nos.netease.com/ydschool') or element.get_attribute('src').startswith(
-                             'http://nos.netease.com/ydschool')]
+                             'http://nos.netease.com/ydschool') or element.get_attribute('src').startswith(
+                             'https://edu-cms.nosdn.127.net') or element.get_attribute('src').startswith(
+                             'http://edu-cms.nosdn.127.net'))]
 
                 jpg_links = [link for link in links if link.endswith('.png') or link.endswith('.jpg')]
                 if len(jpg_links) > 0:
@@ -94,10 +99,8 @@ class KeStudy163CourseByYangLiang30(object):
                     time.sleep(1)
                     links = [element.get_attribute('src') for element in
                              self.driver.find_elements(By.XPATH, "//*[@src]") if
-                             element.get_attribute('src').startswith('https://ydschool') or element.get_attribute(
-                                 'src').startswith('http://ydschool') or element.get_attribute('src').startswith(
-                                 'https://nos.netease.com/ydschool') or element.get_attribute('src').startswith(
-                                 'http://nos.netease.com/ydschool')]
+                             not element.get_attribute('src').endswith('.js') and (
+                                     '.mp3' in element.get_attribute('src') or '.mp4' in element.get_attribute('src'))]
 
                 title = re.sub(r'[\\/:*?"<>|]', '', self.driver.title)
                 the_dir = self.output + f'{str(num)} - {title}/'
